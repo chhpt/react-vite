@@ -4,15 +4,26 @@ import styled from 'styled-components'
 import logo from '@/assets/logo.svg'
 import '@/App.less'
 
+const Header = styled.header`
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+`
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="text-center">
-      <header className="App-header">
+      <Header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
-        <p>
+        <p className="py-5">
           <Button onClick={() => setCount((count) => count + 1)}>count is: {count}</Button>
         </p>
         <p>
@@ -37,7 +48,7 @@ function App() {
             Vite Docs
           </a>
         </p>
-      </header>
+      </Header>
     </div>
   )
 }
