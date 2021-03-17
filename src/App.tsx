@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
 import { Button } from 'antd'
+import React, { useState } from 'react'
+import { Link, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import logo from '@/assets/logo.svg'
 import '@/App.less'
+import About from './About'
+
+const AppContainer = styled.div`
+  min-height: 100vh;
+  background-color: #282c34;
+`
 
 const Header = styled.header`
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,8 +24,8 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="text-center">
-      <Header className="App-header">
+    <AppContainer className="text-center flex flex-col align-middle justify-center">
+      <Header>
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p className="py-5">
@@ -31,25 +36,24 @@ function App() {
         </p>
         <p>
           <a
-            className="App-link"
-            href="https://reactjs.org"
             target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
             href="https://vitejs.dev/guide/features.html"
-            target="_blank"
             rel="noopener noreferrer"
           >
             Vite Docs
           </a>
+          {' | '}
+          <Link to="/">Home</Link>
+          {' | '}
+          <Link to="/about">About</Link>
         </p>
       </Header>
-    </div>
+      <Switch>
+        <Route exact path="/about">
+          <About />
+        </Route>
+      </Switch>
+    </AppContainer>
   )
 }
 
