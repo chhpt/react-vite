@@ -49,6 +49,9 @@ function App() {
         </p>
       </Header>
       <Switch>
+        <Route exact path="/">
+          <div className="text-center text-white text-2xl mt-10">Home</div>
+        </Route>
         <Route exact path="/about">
           <About />
         </Route>
