@@ -1,7 +1,7 @@
 import { Button } from 'antd'
 import React, { useState } from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import logo from '@/assets/logo.svg'
 import '@/App.less'
 import About from './About'

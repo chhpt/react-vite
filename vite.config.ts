@@ -1,10 +1,13 @@
 import path from 'path'
-import { defineConfig } from 'vite'
-import vitePluginImp from 'vite-plugin-imp'
+import { ConfigEnv, UserConfigExport } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
+import visualizer from 'rollup-plugin-visualizer'
+import vitePluginImp from 'vite-plugin-imp'
+// add @vitejs/plugin-legacy to support legacy browsers
+// import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config: UserConfigExport = {
   resolve: {
     alias: [
       {
@@ -15,7 +18,17 @@ export default defineConfig({
   },
   plugins: [
     reactRefresh(),
-    // antd-mobile 按需引入
+    // legacy({
+    //   targets: [
+    //     'Android >= 39',
+    //     'Chrome >= 50',
+    //     'Safari >= 10.1',
+    //     'iOS >= 10.3',
+    //     '> 1%',
+    //     'not IE 11'
+    //   ]
+    // }),
+    // antd 按需引入
     vitePluginImp({
       libList: [
         {
@@ -33,5 +46,35 @@ export default defineConfig({
         javascriptEnabled: true
       }
     }
+  },
+  build: {
+    target: 'es2015',
+    minify: 'terser',
+    // cssCodeSplit: true,
+    polyfillDynamicImport: true,
+    rollupOptions: {
+      plugins: []
+    }
   }
-})
+}
+
+export default ({ command }: ConfigEnv) => {
+  const { build = {} } = config
+  const { rollupOptions = {} } = build
+
+  // bundle analyze
+  if (process.env.ANALYZE) {
+    const { plugins = [] } = rollupOptions
+    rollupOptions.plugins = [
+      ...plugins,
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        template: 'sunburst'
+      })
+    ]
+  }
+
+  return config
+}
