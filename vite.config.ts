@@ -3,18 +3,20 @@ import { ConfigEnv, UserConfigExport } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import visualizer from 'rollup-plugin-visualizer'
 import vitePluginImp from 'vite-plugin-imp'
+
 // add @vitejs/plugin-legacy to support legacy browsers
 // import legacy from '@vitejs/plugin-legacy'
 
 // https://vitejs.dev/config/
 const config: UserConfigExport = {
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, './src')
-      }
-    ]
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
+  define: {
+    // fix process undefined error
+    'process.env': {}
   },
   plugins: [
     reactRefresh(),
@@ -28,7 +30,7 @@ const config: UserConfigExport = {
     //     'not IE 11'
     //   ]
     // }),
-    // antd 按需引入
+    // import antd on demand
     vitePluginImp({
       libList: [
         {
@@ -42,7 +44,7 @@ const config: UserConfigExport = {
   css: {
     preprocessorOptions: {
       less: {
-        // 支持内联 JavaScript
+        // suport inline javascript
         javascriptEnabled: true
       }
     }

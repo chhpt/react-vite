@@ -1,10 +1,13 @@
+import React from 'react'
 import { Button } from 'antd'
-import React, { useState } from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 import styled from '@emotion/styled'
 import logo from '@/assets/logo.svg'
-import '@/App.less'
+import { useState } from '@hookstate/core'
 import About from './About'
+import TaskForm from './TaskForm'
+
+import '@/App.less'
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -21,7 +24,7 @@ const Header = styled.header`
 `
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useState(0)
 
   return (
     <AppContainer className="text-center flex flex-col align-middle justify-center">
@@ -29,7 +32,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p className="py-5">
-          <Button onClick={() => setCount((count) => count + 1)}>count is: {count}</Button>
+          <Button onClick={() => count.set((p) => p + 1)}>count is: {count.get()}</Button>
         </p>
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
@@ -54,6 +57,7 @@ function App() {
         </Route>
         <Route exact path="/about">
           <About />
+          <TaskForm />
         </Route>
       </Switch>
     </AppContainer>
