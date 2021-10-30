@@ -2,7 +2,7 @@ import path from 'path'
 import { ConfigEnv, UserConfigExport } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import visualizer from 'rollup-plugin-visualizer'
-import vitePluginImp from 'vite-plugin-imp'
+import usePluginImport from 'vite-plugin-importer'
 
 // add @vitejs/plugin-legacy to support legacy browsers
 // import legacy from '@vitejs/plugin-legacy'
@@ -31,14 +31,10 @@ const config: UserConfigExport = {
     //   ]
     // }),
     // import antd on demand
-    vitePluginImp({
-      libList: [
-        {
-          libName: 'antd',
-          style: (name) => `antd/lib/${name}/style/index.less`,
-          libDirectory: 'lib'
-        }
-      ]
+    usePluginImport({
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: true
     })
   ],
   css: {
@@ -53,7 +49,6 @@ const config: UserConfigExport = {
     target: 'es2015',
     minify: 'terser',
     // cssCodeSplit: true,
-    polyfillDynamicImport: true,
     rollupOptions: {
       plugins: []
     }
