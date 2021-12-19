@@ -1,8 +1,5 @@
-import React from 'react'
-import styled from '@emotion/styled'
-
 function About() {
-  return <div className="text-center text-white text-2xl mt-10">Route About</div>
+  return <div className="mt-10 text-2xl text-center text-white">Route About</div>
 }
 
 export default About

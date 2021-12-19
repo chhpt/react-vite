@@ -1,6 +1,5 @@
-import React from 'react'
 import { Button } from 'antd'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import styled from '@emotion/styled'
 import logo from '@/assets/logo.svg'
 import { useState } from '@hookstate/core'
@@ -27,7 +26,7 @@ function App() {
   const count = useState(0)
 
   return (
-    <AppContainer className="text-center flex flex-col align-middle justify-center">
+    <AppContainer className="flex flex-col justify-center text-center align-middle">
       <Header>
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
@@ -51,15 +50,21 @@ function App() {
           <Link to="/about">About</Link>
         </p>
       </Header>
-      <Switch>
-        <Route exact path="/">
-          <div className="text-center text-white text-2xl mt-10">Home</div>
-        </Route>
-        <Route exact path="/about">
-          <About />
-          <TaskForm />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route
+          path="/"
+          element={<div className="mt-10 text-2xl text-center text-white">Home</div>}
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <About />
+              <TaskForm />
+            </>
+          }
+        />
+      </Routes>
     </AppContainer>
   )
 }

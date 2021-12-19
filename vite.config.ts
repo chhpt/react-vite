@@ -1,6 +1,6 @@
 import path from 'path'
+import react from '@vitejs/plugin-react'
 import { ConfigEnv, UserConfigExport } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh'
 import visualizer from 'rollup-plugin-visualizer'
 import usePluginImport from 'vite-plugin-importer'
 
@@ -19,7 +19,7 @@ const config: UserConfigExport = {
     'process.env': {}
   },
   plugins: [
-    reactRefresh(),
+    react(),
     // legacy({
     //   targets: [
     //     'Android >= 39',
