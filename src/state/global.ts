@@ -1,8 +1,6 @@
-import { createState, useState } from '@hookstate/core'
+import { proxy } from 'valtio'
 
 /**
  * global state
  */
-const global = createState({})
-
-export const useGlobalState = () => useState(global)
+export const global = proxy({})

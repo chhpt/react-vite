@@ -1,12 +1,12 @@
 import { Button } from 'antd'
+import { proxy, useSnapshot } from 'valtio'
 import { Link, Route, Routes } from 'react-router-dom'
 import styled from '@emotion/styled'
 import logo from '@/assets/logo.svg'
-import { useState } from '@hookstate/core'
 import About from './About'
 import TaskForm from './TaskForm'
 
-import '@/App.less'
+import '@/App.scss'
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -22,8 +22,10 @@ const Header = styled.header`
   color: white;
 `
 
+const state = proxy({ count: 0 })
+
 function App() {
-  const count = useState(0)
+  const { count } = useSnapshot(state)
 
   return (
     <AppContainer className="flex flex-col justify-center text-center align-middle">
@@ -31,7 +33,13 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p className="py-5">
-          <Button onClick={() => count.set((p) => p + 1)}>count is: {count.get()}</Button>
+          <Button
+            onClick={() => {
+              state.count = state.count + 1
+            }}
+          >
+            count is: {count}
+          </Button>
         </p>
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
