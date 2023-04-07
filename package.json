@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "NODE_ENV=production vite build",
+    "build:lib": "NODE_ENV=production vite build --config ./vite.config-lib.ts",
     "analyze": "ANALYZE=true npm run build",
     "serve": "vite preview"
   },
