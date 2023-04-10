@@ -1,7 +1,6 @@
 import path from 'path'
 import react from '@vitejs/plugin-react'
-import { ConfigEnv, UserConfigExport } from 'vite'
-import visualizer from 'rollup-plugin-visualizer'
+import { UserConfigExport } from 'vite'
 import usePluginImport from 'vite-plugin-importer'
 
 // add @vitejs/plugin-legacy to support legacy browsers
@@ -14,10 +13,7 @@ const config: UserConfigExport = {
       '@': path.resolve(__dirname, './src')
     }
   },
-  define: {
-    // fix process undefined error
-    'process.env': {}
-  },
+  define: {},
   plugins: [
     react(),
     // legacy({
