@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   extends: ['alloy', 'alloy/react', 'alloy/typescript'],
   env: {
     // 这里填入你的项目用到的环境

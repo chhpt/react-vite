@@ -1,34 +1,36 @@
-import { Button } from 'antd'
-import { proxy, useSnapshot } from 'valtio'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useTaskStore } from './store'
 
 interface Task {
   name: string
   priority?: number
 }
 
-const state = proxy<Task[]>([{ name: 'First Task' }])
-
 const TaskForm = () => {
-  const tasks = useSnapshot(state)
+  const tasks = useTaskStore((state) => state.tasks)
+  const addTask = useTaskStore((state) => state.addTask)
 
   return (
     <div>
-      {tasks.map((taskState: Task, taskIndex) => (
+      {tasks.map((taskState: Task, taskIndex: number) => (
         <TaskEditor key={taskIndex} taskState={taskState} index={taskIndex} />
       ))}
       <br />
-      <Button onClick={() => state.push({ name: 'Untitled' })}>Add task</Button>
+      <Button onClick={addTask}>Add task</Button>
     </div>
   )
 }
 
 function TaskEditor({ taskState, index }: { index: number; taskState: Task }) {
+  const updateTaskName = useTaskStore((state) => state.updateTaskName)
+
   return (
     <p>
-      <input
+      <Input
         value={taskState.name}
         onChange={(e) => {
-          state[index].name = e.target.value
+          updateTaskName(index, e.target.value)
         }}
       />
     </p>

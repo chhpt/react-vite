@@ -1,10 +1,10 @@
-import { Button } from 'antd'
-import { proxy, useSnapshot } from 'valtio'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import { Link, Route, Routes } from 'react-router'
 import styled from '@emotion/styled'
 import logo from '@/assets/logo.svg'
 import About from './About'
 import TaskForm from './TaskForm'
+import { useCountStore } from './store'
 
 import '@/App.scss'
 
@@ -22,10 +22,9 @@ const Header = styled.header`
   color: white;
 `
 
-const state = proxy({ count: 0 })
-
 function App() {
-  const { count } = useSnapshot(state)
+  const count = useCountStore((state) => state.count)
+  const increment = useCountStore((state) => state.increment)
 
   return (
     <AppContainer className="flex flex-col justify-center text-center align-middle">
@@ -33,13 +32,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>
         <p className="py-5">
-          <Button
-            onClick={() => {
-              state.count = state.count + 1
-            }}
-          >
-            count is: {count}
-          </Button>
+          <Button onClick={increment}>count is: {count}</Button>
         </p>
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.
